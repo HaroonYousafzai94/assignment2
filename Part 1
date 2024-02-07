@@ -160,3 +160,10 @@ PS D:\Devops\Practice> docker inspect network pin
     }
 ]
 Error: No such object: network
+# new contaniner created and port 8080:8080 allocted 
+PS D:\Devops\Practice> docker run --name httpd_2 --net=pin -p 8080:8080 -d nginx
+cbcc53479527cdd649387fe87ad11784077b1428d04a249f2082234a5d94596f
+
+
+
+
