@@ -104,3 +104,59 @@ AH00558: httpd: Could not reliably determine the server's fully qualified domain
 AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
 [Wed Feb 07 18:36:35.899398 2024] [mpm_event:notice] [pid 1:tid 140529009198976] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
 [Wed Feb 07 18:36:35.899490 2024] [core:notice] [pid 1:tid 140529009198976] AH00094: Command line: 'httpd -D FOREGROUND'
+[Wed Feb 07 18:46:23.340809 2024] [mpm_event:notice] [pid 1:tid 140529009198976] AH00491: caught SIGTERM, shutting down
+
+# httpd container stoped
+PS D:\Devops\Practice> docker stop httpd
+httpd
+
+#new container created named httpd_2 on same pin bridge with nginx image 
+PS D:\Devops\Practice> docker run --name httpd_2 --net=pin -d nginx
+6fbff2d686298aca442d63684cc8086aafe2b67c7cd617a6a349683050935064
+#httpd_2 container stopped 
+PS D:\Devops\Practice> docker stop httpd_2
+httpd_2
+#httpd container remved else port was not mentioned or allocted
+PS D:\Devops\Practice> docker rm httpd_2
+httpd_2
+#network list
+PS D:\Devops\Practice> docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+ace96cd2d9ba   bridge    bridge    local
+0ca04cdebeca   host      host      local
+b459b73ab61d   none      null      local
+f08bb1747af1   pin       bridge    local
+
+#inspect pin
+PS D:\Devops\Practice> docker inspect network pin
+[
+    {
+        "Name": "pin",
+        "Id": "f08bb1747af1c7a94dc265722bf2d741539e7fa6d24ddb13b39724f87481a7d4",
+        "Created": "2024-02-07T18:16:10.999979366Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+Error: No such object: network
